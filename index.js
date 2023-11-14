@@ -8,5 +8,5 @@ console.log(nombre);
 console.log(dividir(10, 2));
 
 //import default
-//import dividir from "./math.js";
-//console.log(dividir(5, 2));
+import gatito from "./math.js";
+console.log(gatito(5, 2));
