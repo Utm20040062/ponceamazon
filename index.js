@@ -1,17 +1,20 @@
-//import modules
-//ESModules 
-//import  dividir,{suma, resta, nombre } from "./math.js"
+import { getPrice } from "./src/scrapper.js";
+import {intro, outro, text, spinner } from '@clack/prompts';
 
-//console.log(suma(2,2));
-//console.log(resta(2,2));
-//console.log(nombre);
-//console.log(dividir(10, 2));
+export default async function (){
+const s = spinner();
 
-//import default
-//import gatito from "./math.js";
-//console.log(gatito(5, 2));
+intro('Welcome to soriana price bot!');
 
-import axios from "axios";
-import { data } from "cheerio/lib/api/attributes";
-axios.get(
-    "https://www.amazon.com.mx/dp/B0CD2396HC?ref_=Oct_DLandingS_D_4bb5f062_NA&th=1").then ((response) => console.log(response.data));
+const url = await text({
+  message: 'Type or paste your Soriana product URL:',
+  placeholder: 'https://www.soriana.com/consola-playstation-5-standard-god-of-war-ragnarok/11743988.html',
+  validate: (value) => {
+    if(!value.includes('www.soriana.com')) return 'Inavalid soriana URL';
+  }
+});
+s.start('Getting price...');
+const price = await getPrice(url);
+s.stop(price);
+outro('Thanks for using my app!')
+};
